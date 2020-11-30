@@ -1,0 +1,122 @@
+<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-analytics.js"></script>
+
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Voice Controlled Notes App</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shoelace-css/1.0.0-beta16/shoelace.css">
+        <link rel="stylesheet" href="styles.css">
+
+    </head>
+    <body>
+        <div class="container">
+
+            <h1>Speak something!</h1>
+          
+            
+
+            <h3 class="no-browser-support">Sorry, Your Browser Doesn't Support the Web Speech API. Try Opening This Demo In Google Chrome.</h3>
+
+            <div class="app"> 
+                <h3></h3>
+                <div class="input-single">
+				    <form id="sending" action="chat.html" method="POST">
+                    <textarea  type="text" type="submit" id="note-textarea" placeholder="Speak something and we'll convert it as text and sent it to your friend" rows="4"></textarea>
+                    <button onclick="myFunction()" style="background-color:#5d8ffc;
+                    border-radius: 3px;
+                    padding: 0px;
+                    width: 25%;
+                    " type="submit" class="message-submit">Send</button>                    
+					</form>
+				</div>         
+                <button style="background-color:#5d8ffc;" id="start-record-btn" title="Start Recording">Start Recognition</button>
+                <button style="background-color:#5d8ffc;" id="pause-record-btn" title="Pause Recording">Pause Recognition</button>
+                <button style="background-color:#5d8ffc;" id="save-note-btn" title="Save Note">Save Chat</button><br><br><br>
+                
+                <h3>My previous chats</h3>
+                <ul id="notes">
+                    <li>
+                        <p class="no-notes">You don't have any chats yet.</p>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+<script>
+function myFunction() {
+  location.replace("chat.html")
+}
+</script>
+
+<script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+      apiKey: "AIzaSyCBQ17egfAOGVDRtGoy3M5-whUsMaWa01w",
+      authDomain: "smarttranslator-f8af8.firebaseapp.com",
+      databaseURL: "https://smarttranslator-f8af8.firebaseio.com",
+      projectId: "smarttranslator-f8af8",
+      storageBucket: "smarttranslator-f8af8.appspot.com",
+      messagingSenderId: "260267049226",
+      appId: "1:260267049226:web:4a1d059ede05c5a748faf3",
+      measurementId: "G-5RWJE0Z4RK"
+    };
+    // Initialize Firebase
+ 
+    firebase.initializeApp(firebaseConfig);
+    var messageRef = firebase.database().ref('messages');
+    document.getElementById('sending').addEventListener('submit',submitForm);
+
+function submitForm(e)
+{
+e.preventDefault();
+var name= "Surya";
+var message=getInputVal('note-textarea');
+
+
+saveMessage(name,message);
+
+}
+
+function getInputVal(id)
+{
+return document.getElementById(id).value;
+}
+function saveMessage(name,message)
+{
+var newMessageRef = messageRef.push();
+newMessageRef.set({
+    message: message,
+    sender: name
+
+});
+}
+</script>
+<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase.js"></script>
+
+
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-analytics.js"></script>
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="script_speech.js"></script>
+
+        <!-- Only used for the demos ads. Please ignore and remove. --> 
+        <script src="https://cdn.tutorialzine.com/misc/enhance/v3.js" async></script>
+
+    </body>
+</html>
+
+
